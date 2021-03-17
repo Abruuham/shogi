@@ -18,13 +18,13 @@ public class BoxDrivePiece extends Piece{
         return CheckMoves.checkBoxDriveMove(startRow, endRow, startCol, endCol);
     }
 
+    // this piece cannot be promoted
     @Override
     public void promote() {
-        // this piece cannot be promoted
     }
 
+    // this piece cannot be demoted
     @Override
     public void demote() {
-        // this piece cannot be demoted
     }
 }

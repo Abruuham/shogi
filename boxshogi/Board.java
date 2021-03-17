@@ -22,6 +22,10 @@ public class Board {
         pieces.toString();
     }
 
+    public Piece getPiece(int row, int col){
+        return board[row][col];
+    }
+
     /* Print board */
     public String toString() {
         String[][] pieces = new String[BOARD_SIZE][BOARD_SIZE];

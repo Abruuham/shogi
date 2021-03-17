@@ -36,6 +36,9 @@ public class Piece {
         this.type = type;
     }
 
+    public final void capturePiece(){
+
+    }
     protected boolean canPlayerMove(int startRow, int startCol, int endRow, int endCol, Board board){
         return false;
     }
