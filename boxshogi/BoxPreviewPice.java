@@ -8,7 +8,7 @@ public class BoxPreviewPice extends Piece{
      * Constructor for BoxPreviewPice
      * @param owner - the owner of the piece, either player 1 or player 2
      */
-    public BoxPreviewPice(int owner){
+    public BoxPreviewPice(Player owner){
         super(owner);
         setLabel(LABEL);
     }

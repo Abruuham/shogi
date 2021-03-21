@@ -5,7 +5,6 @@ public class Main {
         if (args.length == 1 && args[0].equals("-i")) {
             Board board = new Board();
             System.out.println(board);
-            System.out.println("Must implement interactive mode");
         } else if (args.length == 2 && args[0].equals("-f")) {
             try {
                 //Utils.TestCase input = Utils.parseTestCase(args[1]);

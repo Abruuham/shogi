@@ -8,7 +8,7 @@ public class BoxDrivePiece extends Piece{
      * Constructor for BoxDrivePiece
      * @param owner - the owner of the piece, either player 1 or player 2
      */
-    public BoxDrivePiece(int owner){
+    public BoxDrivePiece(Player owner){
         super(owner);
         setLabel(LABEL);
     }

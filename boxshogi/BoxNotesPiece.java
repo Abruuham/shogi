@@ -7,7 +7,7 @@ public class BoxNotesPiece extends Piece{
      * Constructor for BoxNotesPiece
      * @param owner - the owner of the piece, either player 1 or player 2
      */
-    public BoxNotesPiece(int owner){
+    public BoxNotesPiece(Player owner){
         super(owner);
         setLabel(LABEL);
     }

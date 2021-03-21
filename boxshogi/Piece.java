@@ -1,6 +1,6 @@
 package boxshogi;
 
-public class Piece {
+public abstract class Piece {
 
     private Player owner;
     private char type = ' ';
@@ -39,9 +39,14 @@ public class Piece {
     public final void capturePiece(){
 
     }
-    protected boolean canPlayerMove(int startRow, int startCol, int endRow, int endCol, Board board){
-        return false;
+
+    public boolean isMoveValid(int startRow, int endRow, int startCol, int endCol, Board board){
+        if(startRow == endRow && startCol == endCol) return false;
+        Piece piece = board.getPiece(endRow, endCol);
+        if(piece != null && piece.getOwner() == owner) return false;
+        return canPlayerMove(startRow, endRow, startCol, endCol, board);
     }
+    protected abstract boolean canPlayerMove(int startRow, int startCol, int endRow, int endCol, Board board);
 
     public void promote(){
 

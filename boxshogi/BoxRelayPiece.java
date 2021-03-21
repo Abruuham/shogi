@@ -8,7 +8,7 @@ public class BoxRelayPiece extends Piece{
      * Constructor for BoxRelayPiece
      * @param owner - the owner of the piece, either player 1 or player 2
      */
-    public BoxRelayPiece(int owner){
+    public BoxRelayPiece(Player owner){
         super(owner);
         setLabel(LABEL);
     }

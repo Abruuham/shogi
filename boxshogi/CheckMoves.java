@@ -3,6 +3,13 @@ package boxshogi;
 import java.util.Map;
 
 public class CheckMoves {
+
+    private final Map<Player, Map<String, Integer>> boxDriveLocation;
+
+    public CheckMoves(Map<Player, Map<String, Integer>> boxDriveLocation) {
+        this.boxDriveLocation = boxDriveLocation;
+    }
+
     static boolean checkBoxDriveMove(int startRow, int endRow, int startCol, int endCol){
         int row = Math.abs(endRow - startRow);
         int col = Math.abs(endCol - startCol);
@@ -102,14 +109,29 @@ public class CheckMoves {
         else return (col == 0 && row == 1);
     }
 
-    public boolean isCheck(Player player, Board board){
-        for(int i = 0; i < board.BOARD_SIZE; i++){
-            for(int j = 0; j < board.BOARD_SIZE; j++){
-                Piece piece = board[i][j];
-                if(piece != null && piece.getOwner() == player)
-                {
-                    Map<String, Integer> boxDriveLocation = getOpponentLocation(player);
-                    if(piece.isMoveValid(i, j, boxDriveLocation.get("row"), boxDriveLocation.get("col"), this)){
+    boolean isMoveValid(int startRow, int endRow, int startCol, int endCol, boolean promote, Player player){
+
+        return true;
+    }
+
+    private Player getOpponent(Player currentPlayer) {
+        for (Map.Entry<Player, Map<String, Integer>> e : boxDriveLocation.entrySet()) {
+            if (e.getKey() != currentPlayer) return e.getKey();
+        }
+        return null;
+    }
+
+    public Map<String, Integer> getOpponentBoxDriveLocation(Player currentPlayer) {
+        return boxDriveLocation.get(getOpponent(currentPlayer));
+    }
+
+    boolean isCheck(Player player, Board board){
+        for(int i = 0; i < Board.getBoardSize(); i++) {
+            for(int j = 0; j < Board.getBoardSize(); j++) {
+                Piece piece = Board.board[i][j];
+                if(piece != null && piece.getOwner() == player) {
+                    Map<String, Integer> boxDriveLocation = getOpponentBoxDriveLocation(player);
+                    if(piece.isMoveValid(i, j, boxDriveLocation.get("row"), boxDriveLocation.get("col"), board)){
                         return true;
                     }
                 }

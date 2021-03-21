@@ -5,9 +5,9 @@ package boxshogi;
  */
 public class Board {
 
-    Piece[][] board;
+    static Piece[][] board;
 
-    final int BOARD_SIZE = 5;
+    static final int BOARD_SIZE = 5;
 
     public Board() {
     	//TODO initialize variable board here
@@ -16,6 +16,10 @@ public class Board {
 
     public Piece getPiece(int row, int col){
         return board[row][col];
+    }
+
+    public static int getBoardSize() {
+        return BOARD_SIZE;
     }
 
     /* Print board */

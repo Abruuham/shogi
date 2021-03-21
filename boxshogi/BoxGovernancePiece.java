@@ -8,7 +8,7 @@ public class BoxGovernancePiece extends Piece{
      * Constructor for BoxGovernancePiece
      * @param owner - the owner of the piece, either player 1 or player 2
      */
-    public BoxGovernancePiece(int owner){
+    public BoxGovernancePiece(Player owner){
         super(owner);
         setLabel(LABEL);
     }

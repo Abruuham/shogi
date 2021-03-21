@@ -8,7 +8,7 @@ public class BoxShieldPiece extends Piece{
      * Constructor for BoxShieldPiece
      * @param owner - the owner of the piece, either player 1 or player 2
      */
-    public BoxShieldPiece(int owner){
+    public BoxShieldPiece(Player owner){
         super(owner);
         setLabel(LABEL);
     }
