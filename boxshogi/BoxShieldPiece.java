@@ -2,7 +2,7 @@ package boxshogi;
 
 
 public class BoxShieldPiece extends Piece{
-    private static final char SYMBOL = 'S';
+    private static final char LABEL = 'S';
 
     /**
      * Constructor for BoxShieldPiece
@@ -10,7 +10,7 @@ public class BoxShieldPiece extends Piece{
      */
     public BoxShieldPiece(int owner){
         super(owner);
-        setSymbol(SYMBOL);
+        setLabel(LABEL);
     }
 
     @Override

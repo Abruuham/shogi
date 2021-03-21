@@ -2,7 +2,7 @@ package boxshogi;
 
 // Box Drive piece (King in real shogi)
 public class BoxDrivePiece extends Piece{
-    private static final char SYMBOL = 'D';
+    private static final char LABEL = 'D';
 
     /**
      * Constructor for BoxDrivePiece
@@ -10,7 +10,7 @@ public class BoxDrivePiece extends Piece{
      */
     public BoxDrivePiece(int owner){
         super(owner);
-        setSymbol(SYMBOL);
+        setLabel(LABEL);
     }
 
     @Override

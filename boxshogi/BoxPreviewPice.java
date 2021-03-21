@@ -1,7 +1,7 @@
 package boxshogi;
 
 public class BoxPreviewPice extends Piece{
-    private static final char SYMBOL = 'P';
+    private static final char LABEL = 'P';
 
 
     /**
@@ -10,7 +10,7 @@ public class BoxPreviewPice extends Piece{
      */
     public BoxPreviewPice(int owner){
         super(owner);
-        setSymbol(SYMBOL);
+        setLabel(LABEL);
     }
 
     @Override

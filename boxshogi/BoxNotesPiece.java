@@ -1,7 +1,7 @@
 package boxshogi;
 
 public class BoxNotesPiece extends Piece{
-    private static final char SYMBOL = 'N';
+    private static final char LABEL = 'N';
 
     /**
      * Constructor for BoxNotesPiece
@@ -9,7 +9,7 @@ public class BoxNotesPiece extends Piece{
      */
     public BoxNotesPiece(int owner){
         super(owner);
-        setSymbol(SYMBOL);
+        setLabel(LABEL);
     }
 
     @Override

@@ -2,13 +2,13 @@ package boxshogi;
 
 public class Piece {
 
-    private int owner;
+    private Player owner;
     private char type = ' ';
-    private char symbol = ' ';
+    private char label = ' ';
     protected boolean isPromoted = false;
 
 
-    public Piece(int owner) {
+    public Piece(Player owner) {
         this.owner = owner;
     }
 
@@ -16,20 +16,20 @@ public class Piece {
         return type;
     }
 
-    public char getSymbol(){
-        return symbol;
+    public char getLabel(){
+        return label;
     }
 
-    public int getOwner(){
+    public Player getOwner(){
         return owner;
     }
 
-    public void setOwner(int owner){
+    public void setOwner(Player owner){
         this.owner = owner;
     }
 
-    public void setSymbol(char symbol){
-        this.symbol = symbol;
+    public void setLabel(char label){
+        this.label = label;
     }
 
     public void setType(char type){

@@ -1,7 +1,7 @@
 package boxshogi;
 
 public class BoxGovernancePiece extends Piece{
-    private static final char SYMBOL = 'G';
+    private static final char LABEL = 'G';
 
 
     /**
@@ -10,7 +10,7 @@ public class BoxGovernancePiece extends Piece{
      */
     public BoxGovernancePiece(int owner){
         super(owner);
-        setSymbol(SYMBOL);
+        setLabel(LABEL);
     }
 
     @Override

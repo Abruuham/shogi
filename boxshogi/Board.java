@@ -11,15 +11,7 @@ public class Board {
 
     public Board() {
     	//TODO initialize variable board here
-        String[][] pieces = new String[BOARD_SIZE][BOARD_SIZE];
-//        for(int row = 0; row < pieces.length; row++){
-//            for(int col = 0; col < pieces[row].length; col++){
-//
-//            }
-//        }
-
-
-        pieces.toString();
+        board = new Piece[BOARD_SIZE][BOARD_SIZE];
     }
 
     public Piece getPiece(int row, int col){

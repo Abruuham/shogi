@@ -2,7 +2,7 @@ package boxshogi;
 
 
 public class BoxRelayPiece extends Piece{
-    private static final char SYMBOL = 'R';
+    private static final char LABEL = 'R';
 
     /**
      * Constructor for BoxRelayPiece
@@ -10,7 +10,7 @@ public class BoxRelayPiece extends Piece{
      */
     public BoxRelayPiece(int owner){
         super(owner);
-        setSymbol(SYMBOL);
+        setLabel(LABEL);
     }
 
 

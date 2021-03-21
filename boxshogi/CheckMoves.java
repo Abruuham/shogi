@@ -1,5 +1,7 @@
 package boxshogi;
 
+import java.util.Map;
+
 public class CheckMoves {
     static boolean checkBoxDriveMove(int startRow, int endRow, int startCol, int endCol){
         int row = Math.abs(endRow - startRow);
@@ -71,4 +73,56 @@ public class CheckMoves {
         }
         return true;
     }
+
+    static boolean checkBoxShieldPiece(int startRow, int endRow, int startCol, int endCol){
+        int row = endRow - startRow;
+        int col = endCol - startCol;
+
+        if(row == 0 && (col == 1 || col == -1)) return true;
+        else if(col == 0 && (row == 1 || row == -1)) return true;
+        else if(row ==  -1 && (col == 1 || col == -1)) return true;
+        return true;
+    }
+
+    static boolean checkBoxRelayPiece(int startRow, int endRow, int startCol, int endCol){
+        int row = endRow - startRow;
+        int col = endCol - startCol;
+
+        if (col == 0 && row == 1) return true;
+        else if(col == 1 && (row == 1 || row == -1)) return true;
+        else if(col == -1 && (row == 1 || row == 1)) return true;
+        return false;
+    }
+
+    static boolean checkBoxPreviewPiece(int startRow, int endRow, int startCol, int endCol){
+        int row = endRow - startRow;
+        int col = endCol - startCol;
+
+        if(col == 0 && row == -1) return true;
+        else return (col == 0 && row == 1);
+    }
+
+    public boolean isCheck(Player player, Board board){
+        for(int i = 0; i < board.BOARD_SIZE; i++){
+            for(int j = 0; j < board.BOARD_SIZE; j++){
+                Piece piece = board[i][j];
+                if(piece != null && piece.getOwner() == player)
+                {
+                    Map<String, Integer> boxDriveLocation = getOpponentLocation(player);
+                    if(piece.isMoveValid(i, j, boxDriveLocation.get("row"), boxDriveLocation.get("col"), this)){
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+//    public boolean isCheckMated(Player player){
+//        if (!isCheck(player)) return false;
+//        Player otherPLayer = getOtherPlayer(player);
+//
+//    }
+
 }
