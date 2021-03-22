@@ -1,6 +1,11 @@
-package boxshogi;
+package boxshogi.Pieces;
 
-public class BoxPreviewPiece extends Piece{
+import boxshogi.Board;
+import boxshogi.CheckMoves;
+import boxshogi.Piece;
+import boxshogi.Player;
+
+public class BoxPreviewPiece extends Piece {
     private static final char LABEL = 'P';
 
 

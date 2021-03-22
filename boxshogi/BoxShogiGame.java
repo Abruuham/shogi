@@ -62,7 +62,7 @@ public class BoxShogiGame {
             if(isTopPlayer) {
                 owner = topPlayer;
             }
-            Piece piece = (Piece)Class.forName("boxshogi." +line[0]).getDeclaredConstructor(boxshogi.Player.class).newInstance(owner);
+            Piece piece = (Piece)Class.forName("boxshogi.Pieces." +line[0]).getDeclaredConstructor(boxshogi.Player.class).newInstance(owner);
             board.placePiece(piece, address);
         }
         scanner.close();

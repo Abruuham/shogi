@@ -1,7 +1,12 @@
-package boxshogi;
+package boxshogi.Pieces;
+
+import boxshogi.Board;
+import boxshogi.CheckMoves;
+import boxshogi.Piece;
+import boxshogi.Player;
 
 // Box Drive piece (King in real shogi)
-public final class BoxDrivePiece extends Piece{
+public final class BoxDrivePiece extends Piece {
     private static final char LABEL = 'D';
 
     /**

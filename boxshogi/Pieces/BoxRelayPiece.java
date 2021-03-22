@@ -1,7 +1,12 @@
-package boxshogi;
+package boxshogi.Pieces;
 
 
-public class BoxRelayPiece extends Piece{
+import boxshogi.Board;
+import boxshogi.CheckMoves;
+import boxshogi.Piece;
+import boxshogi.Player;
+
+public class BoxRelayPiece extends Piece {
     private static final char LABEL = 'R';
 
     /**

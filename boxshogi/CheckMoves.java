@@ -10,13 +10,13 @@ public class CheckMoves {
         this.boxDriveLocation = boxDriveLocation;
     }
 
-    static boolean checkBoxDriveMove(int startRow, int endRow, int startCol, int endCol){
+    public static boolean checkBoxDriveMove(int startRow, int endRow, int startCol, int endCol){
         int row = Math.abs(endRow - startRow);
         int col = Math.abs(endCol - startCol);
         return (row <= 1 && col <= 1);
     }
 
-    static boolean checkBoxGovernancePiece(int startRow, int endRow, int startCol, int endCol, Board board){
+    public static boolean checkBoxGovernancePiece(int startRow, int endRow, int startCol, int endCol, Board board){
         int row = endRow - startRow;
         int col = endCol - startCol;
         int rowDelta, colDelta = 0;
@@ -50,7 +50,7 @@ public class CheckMoves {
         return true;
     }
 
-    static boolean checkBoxNotesPiece(int startRow, int endRow, int startCol, int endCol, Board board){
+    public static boolean checkBoxNotesPiece(int startRow, int endRow, int startCol, int endCol, Board board){
         int row = endRow - startRow;
         int col = endCol - startCol;
         if(row != 0 || col != 0){
@@ -81,7 +81,7 @@ public class CheckMoves {
         return true;
     }
 
-    static boolean checkBoxShieldPiece(int startRow, int endRow, int startCol, int endCol){
+    public static boolean checkBoxShieldPiece(int startRow, int endRow, int startCol, int endCol){
         int row = endRow - startRow;
         int col = endCol - startCol;
 
@@ -91,7 +91,7 @@ public class CheckMoves {
         return true;
     }
 
-    static boolean checkBoxRelayPiece(int startRow, int endRow, int startCol, int endCol){
+    public static boolean checkBoxRelayPiece(int startRow, int endRow, int startCol, int endCol){
         int row = endRow - startRow;
         int col = endCol - startCol;
 
@@ -101,7 +101,7 @@ public class CheckMoves {
         return false;
     }
 
-    static boolean checkBoxPreviewPiece(int startRow, int endRow, int startCol, int endCol){
+    public static boolean checkBoxPreviewPiece(int startRow, int endRow, int startCol, int endCol){
         int row = endRow - startRow;
         int col = endCol - startCol;
 
@@ -109,7 +109,7 @@ public class CheckMoves {
         else return (col == 0 && row == 1);
     }
 
-    boolean isMoveValid(int startRow, int endRow, int startCol, int endCol, boolean promote, Player player){
+    public boolean isMoveValid(int startRow, int endRow, int startCol, int endCol, boolean promote, Player player){
 
         return true;
     }
@@ -141,10 +141,5 @@ public class CheckMoves {
         return false;
     }
 
-//    public boolean isCheckMated(Player player){
-//        if (!isCheck(player)) return false;
-//        Player otherPLayer = getOtherPlayer(player);
-//
-//    }
 
 }
