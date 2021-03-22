@@ -19,6 +19,14 @@ public class BoxRelayPiece extends Piece {
 
 
     @Override
+    public boolean promote(int startRow, int endRow, Board board) {
+        if (!canPromote(startRow, endRow, board)) {
+            return false;
+        }
+        promote();
+        return true;
+    }
+    @Override
     public void promote() {
         isPromoted = true;
     }
@@ -26,6 +34,11 @@ public class BoxRelayPiece extends Piece {
     @Override
     public void demote() {
         isPromoted = false;
+    }
+
+    @Override
+    public boolean isLegalDrop(int row, int col, Board board) {
+        return true;
     }
 
     @Override

@@ -28,6 +28,20 @@ public class BoxGovernancePiece extends Piece {
     }
 
     @Override
+    public boolean isLegalDrop(int row, int col, Board board) {
+        return true;
+    }
+
+    @Override
+    public boolean promote(int startRow, int endRow, Board board ) {
+        if (!canPromote(startRow, endRow, board)) {
+            return false;
+        }
+        promote();
+        return true;
+    }
+
+    @Override
     protected boolean canPlayerMove(int startRow, int startCol, int endRow, int endCol, Board board) {
         return CheckMoves.checkBoxGovernancePiece(startRow, startCol, endRow, endCol, board);
     }

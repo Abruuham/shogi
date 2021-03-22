@@ -3,6 +3,7 @@ package boxshogi;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
+import java.time.Period;
 import java.util.*;
 
 public class BoxShogiGame {
@@ -16,13 +17,6 @@ public class BoxShogiGame {
     private Player bottomPlayer;
     private Queue<Player> playerList;
     private List<GameListener> gameListeners;
-
-    public BoxShogiGame(GameListener gl) throws FileNotFoundException, IllegalArgumentException, IllegalAccessException,
-            InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, InstantiationException {
-        gameListeners = new ArrayList<>();
-        gameListeners.add(gl);
-        newGame();
-    }
 
     private void nextTurn(){
         turn++;
@@ -39,6 +33,16 @@ public class BoxShogiGame {
             g1.nextTurn(currentPlayer.toString());
         }
     }
+
+
+    public BoxShogiGame(GameListener gl) throws FileNotFoundException, IllegalArgumentException, IllegalAccessException,
+            InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, InstantiationException {
+        gameListeners = new ArrayList<>();
+        gameListeners.add(gl);
+        newGame();
+    }
+
+
 
     public void newGame() throws FileNotFoundException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         turn = 0;
@@ -71,7 +75,35 @@ public class BoxShogiGame {
     }
 
     public boolean move(String from, String to, boolean promote){
-        return true;
+        if (gameOver) return false;
+        System.out.println(currentPlayer.toString());
+        boolean legalMove = board.makeMove(from, to, promote, currentPlayer);
+        List<String> strategies = new LinkedList<>();
+        Player opponent = getOpponent();
+        boolean isCheck = false;
+        if (legalMove) {
+            if (board.isCheck(currentPlayer)) {
+                isCheck = true;
+                strategies = board.unCheckStrategies(opponent);
+                if (strategies.size() == 0) {
+                    gameOver = true;
+                }
+            }
+        }
+        else {
+            gameOver = true;
+        }
+
+        //Inform the observer
+        for (GameListener gl : gameListeners) {
+            gl.moveMade(currentPlayer.toString(), from, to, promote);
+        }
+        broadcastGameState();
+        boardcastMoveResult(legalMove, isCheck, strategies);
+
+        //Move on
+        nextTurn();
+        return legalMove;
     }
 
     public boolean drop(char piece, String address){
@@ -86,7 +118,32 @@ public class BoxShogiGame {
         }
     }
 
+    private void boardcastMoveResult(boolean isLegal, boolean isCheck, List<String> strategies) {
+        Player opponent = getOpponent();
+        if (isLegal) {
+            if (isCheck && !gameOver) {
+                for (GameListener gl : gameListeners) {
+                    gl.check(opponent.toString(), strategies);
+                }
+            }
+            else if (isCheck && gameOver) {
+                for (GameListener gl : gameListeners) {
+                    gl.checkMate(currentPlayer.toString());
+                }
+            }
+        }
+        else {
+            for (GameListener gl : gameListeners) {
+                gl.invalidMove(getOpponent().toString());
+            }
+        }
+    }
+
     public boolean isGameOver(){
         return gameOver;
+    }
+
+    private Player getOpponent() {
+        return playerList.peek();
     }
 }

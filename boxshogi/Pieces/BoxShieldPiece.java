@@ -19,13 +19,21 @@ public class BoxShieldPiece extends Piece {
 
     @Override
     protected boolean canPlayerMove(int startRow, int startCol, int endRow, int endCol, Board board) {
-        return CheckMoves.checkBoxShieldPiece(startRow, startCol, endRow, endCol);
+        return CheckMoves.checkBoxShieldPiece(startRow, startCol, endRow, endCol, position);
     }
-
+    @Override
+    public boolean isLegalDrop(int row, int col, Board board) {
+        return true;
+    }
 
     @Override
     public void promote() {
         // this piece cannot be promoted
+    }
+
+    @Override
+    public boolean promote(int startRow, int endRow, Board board) {
+        return false;
     }
 
     @Override

@@ -20,6 +20,7 @@ public class Main {
                 game.drop(move[1].charAt(0), move[2]);
             }
         }
+        in.close();
     }
 
     public static void main(String[] args) throws NoSuchMethodException, IllegalAccessException, InstantiationException, FileNotFoundException, InvocationTargetException, ClassNotFoundException {

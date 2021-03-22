@@ -23,8 +23,42 @@ public final class Player {
             name = "UPPER";
         } else {
             position = Position.LOWER;
-            name = "LOWER";
+            name = "lower";
         }
+    }
+
+    public int getCapturedPieceIndex(char p) {
+        for (int i = 0; i < captured.size(); i++) {
+            Piece piece = captured.get(i);
+            if (Character.toLowerCase(piece.getLabel()) == p) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public void addCapturedPiece(Piece p) {
+        captured.add(p);
+    }
+
+
+    public void addCapturedPieceToIndex(Piece p, int index) {
+        if (index < captured.size()) {
+            captured.add(index, p);
+        }
+        else {
+            captured.add(p);
+        }
+    }
+
+    public Piece getPiece(char symbol) {
+        for (Piece p : captured) {
+            if (Character.toLowerCase(p.getLabel()) == symbol) {
+                captured.remove(p);
+                return p;
+            }
+        }
+        return null;
     }
 
     public void setCaptured(Piece piece){

@@ -1,22 +1,15 @@
 package boxshogi;
 
-import java.util.Map;
-
 public class CheckMoves {
 
-    private final Map<Player, Map<String, Integer>> boxDriveLocation;
 
-    public CheckMoves(Map<Player, Map<String, Integer>> boxDriveLocation) {
-        this.boxDriveLocation = boxDriveLocation;
-    }
-
-    public static boolean checkBoxDriveMove(int startRow, int endRow, int startCol, int endCol){
+    public static boolean checkBoxDriveMove(int startRow, int startCol, int endRow, int endCol){
         int row = Math.abs(endRow - startRow);
         int col = Math.abs(endCol - startCol);
         return (row <= 1 && col <= 1);
     }
 
-    public static boolean checkBoxGovernancePiece(int startRow, int endRow, int startCol, int endCol, Board board){
+    public static boolean checkBoxGovernancePiece(int startRow, int startCol, int endRow, int endCol, Board board){
         int row = endRow - startRow;
         int col = endCol - startCol;
         int rowDelta, colDelta = 0;
@@ -50,7 +43,7 @@ public class CheckMoves {
         return true;
     }
 
-    public static boolean checkBoxNotesPiece(int startRow, int endRow, int startCol, int endCol, Board board){
+    public static boolean checkBoxNotesPiece(int startRow, int startCol, int endRow, int endCol, Board board){
         int row = endRow - startRow;
         int col = endCol - startCol;
         if(row != 0 || col != 0){
@@ -81,17 +74,16 @@ public class CheckMoves {
         return true;
     }
 
-    public static boolean checkBoxShieldPiece(int startRow, int endRow, int startCol, int endCol){
-        int row = endRow - startRow;
-        int col = endCol - startCol;
-
-        if(row == 0 && (col == 1 || col == -1)) return true;
-        else if(col == 0 && (row == 1 || row == -1)) return true;
-        else if(row ==  -1 && (col == 1 || col == -1)) return true;
-        return true;
+    public static boolean checkBoxShieldPiece(int startRow, int startCol, int endRow, int endCol, Position position){
+        int deltaRow = endRow - startRow;
+        int deltaCol = endCol - startCol;
+        if (deltaRow == 0 && (deltaCol == 1 || deltaCol == -1)) return true;
+        else if (deltaCol == 0 && (deltaRow == 1 || deltaRow == -1)) return true;
+        else if (position == Position.UPPER) return (deltaRow == 1 && (deltaCol == -1 || deltaCol == 1));
+        else return (deltaRow == -1 && (deltaCol == -1 || deltaCol == 1));
     }
 
-    public static boolean checkBoxRelayPiece(int startRow, int endRow, int startCol, int endCol){
+    public static boolean checkBoxRelayPiece(int startRow, int startCol, int endRow, int endCol){
         int row = endRow - startRow;
         int col = endCol - startCol;
 
@@ -101,7 +93,7 @@ public class CheckMoves {
         return false;
     }
 
-    public static boolean checkBoxPreviewPiece(int startRow, int endRow, int startCol, int endCol){
+    public static boolean checkBoxPreviewPiece(int startRow, int startCol, int endRow, int endCol){
         int row = endRow - startRow;
         int col = endCol - startCol;
 
@@ -109,37 +101,6 @@ public class CheckMoves {
         else return (col == 0 && row == 1);
     }
 
-    public boolean isMoveValid(int startRow, int endRow, int startCol, int endCol, boolean promote, Player player){
-
-        return true;
-    }
-
-    private Player getOpponent(Player currentPlayer) {
-        for (Map.Entry<Player, Map<String, Integer>> e : boxDriveLocation.entrySet()) {
-            if (e.getKey() != currentPlayer) return e.getKey();
-        }
-        return null;
-    }
-
-    public Map<String, Integer> getOpponentBoxDriveLocation(Player currentPlayer) {
-        return boxDriveLocation.get(getOpponent(currentPlayer));
-    }
-
-    boolean isCheck(Player player, Board board){
-        for(int i = 0; i < Board.getBoardSize(); i++) {
-            for(int j = 0; j < Board.getBoardSize(); j++) {
-                Piece piece = Board.board[i][j];
-                if(piece != null && piece.getOwner() == player) {
-                    Map<String, Integer> boxDriveLocation = getOpponentBoxDriveLocation(player);
-                    if(piece.isMoveValid(i, j, boxDriveLocation.get("row"), boxDriveLocation.get("col"), board)){
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
-    }
 
 
 }

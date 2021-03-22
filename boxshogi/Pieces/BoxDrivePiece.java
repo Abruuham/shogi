@@ -18,10 +18,19 @@ public final class BoxDrivePiece extends Piece {
     }
 
     @Override
-    protected boolean canPlayerMove(int startRow, int endRow, int startCol, int endCol, Board board) {
-        return CheckMoves.checkBoxDriveMove(startRow, endRow, startCol, endCol);
+    public boolean promote(int startRow, int endRow, Board board) {
+        return false;
     }
 
+    @Override
+    protected boolean canPlayerMove(int startRow, int startCol, int endRow, int endCol, Board board) {
+        return CheckMoves.checkBoxDriveMove(startRow, startCol, endRow, endCol);
+    }
+
+    @Override
+    public boolean isLegalDrop(int row, int col, Board board) {
+        return true;
+    }
     // this piece cannot be promoted
     @Override
     public void promote() {

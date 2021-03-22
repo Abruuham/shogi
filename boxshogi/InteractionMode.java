@@ -5,7 +5,7 @@ import java.util.List;
 final public class InteractionMode implements GameListener {
     @Override
     public void nextTurn(String player) {
-        System.out.println(player + "> ");
+        System.out.print(player + "> ");
     }
 
     @Override
