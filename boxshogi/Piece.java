@@ -3,18 +3,18 @@ package boxshogi;
 public abstract class Piece {
 
     private Player owner;
-    private char type = ' ';
-    private char label = ' ';
+    private char label;
     protected boolean isPromoted = false;
+    protected Position position;
 
 
-    public Piece(Player owner) {
+    public Piece(char label, Player owner) {
+        this.label = owner.getLabel(label);
         this.owner = owner;
+        this.position = owner.getPosition();
+        isPromoted = false;
     }
 
-    public char getType(){
-        return type;
-    }
 
     public char getLabel(){
         return label;
@@ -24,21 +24,12 @@ public abstract class Piece {
         return owner;
     }
 
-    public void setOwner(Player owner){
-        this.owner = owner;
-    }
-
-    public void setLabel(char label){
-        this.label = label;
-    }
-
-    public void setType(char type){
-        this.type = type;
-    }
 
     public final void capturePiece(){
 
     }
+
+
 
     public boolean isMoveValid(int startRow, int endRow, int startCol, int endCol, Board board){
         if(startRow == endRow && startCol == endCol) return false;
@@ -49,14 +40,12 @@ public abstract class Piece {
     protected abstract boolean canPlayerMove(int startRow, int startCol, int endRow, int endCol, Board board);
 
     public void promote(){
-
     }
 
     public void demote(){
-
     }
 
     public String toString() {
-        return "";
+        return String.valueOf(label);
     }
 }

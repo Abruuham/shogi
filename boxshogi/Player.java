@@ -7,7 +7,7 @@ import java.util.List;
 
 
 enum Position {
-    TOP, BOTTOM;
+    UPPER, LOWER;
 }
 public final class Player {
     private final String name;
@@ -19,11 +19,11 @@ public final class Player {
         this.topPlayer = topPlayer;
         captured = new ArrayList<>();
         if (topPlayer) {
-            position = Position.TOP;
-            name = "TOP";
+            position = Position.UPPER;
+            name = "UPPER";
         } else {
-            position = Position.BOTTOM;
-            name = "BOTTOM";
+            position = Position.LOWER;
+            name = "LOWER";
         }
     }
 
@@ -41,6 +41,15 @@ public final class Player {
         return null;
     }
 
+    public List<String> getCapturedSnapshot(){
+        List<String> rtn = new LinkedList<>();
+        for(Piece piece : captured){
+            rtn.add(piece.toString());
+        }
+
+        return rtn;
+    }
+
     public ArrayList<Piece> returnCapturedPieces(){
         return captured;
     }
@@ -52,6 +61,11 @@ public final class Player {
     public char getLabel(char label){
         if (topPlayer) return Character.toUpperCase(label);
         else return Character.toLowerCase(label);
+    }
+
+    @Override
+    public String toString(){
+        return name;
     }
 
 }

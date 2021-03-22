@@ -1,0 +1,15 @@
+./boxshogi/GameListener.java
+./boxshogi/BoxGovernancePiece.java
+./boxshogi/BoxShogiGame.java
+./boxshogi/BoxDrivePiece.java
+./boxshogi/Utils.java
+./boxshogi/CheckMoves.java
+./boxshogi/BoxShieldPiece.java
+./boxshogi/InteractionMode.java
+./boxshogi/Player.java
+./boxshogi/Main.java
+./boxshogi/Board.java
+./boxshogi/Piece.java
+./boxshogi/BoxNotesPiece.java
+./boxshogi/BoxRelayPiece.java
+./boxshogi/BoxPreviewPiece.java

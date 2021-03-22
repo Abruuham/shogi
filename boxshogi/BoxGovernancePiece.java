@@ -9,8 +9,7 @@ public class BoxGovernancePiece extends Piece{
      * @param owner - the owner of the piece, either player 1 or player 2
      */
     public BoxGovernancePiece(Player owner){
-        super(owner);
-        setLabel(LABEL);
+        super(LABEL, owner);
     }
 
     @Override
@@ -25,6 +24,6 @@ public class BoxGovernancePiece extends Piece{
 
     @Override
     protected boolean canPlayerMove(int startRow, int startCol, int endRow, int endCol, Board board) {
-        return super.canPlayerMove(startRow, startCol, endRow, endCol, board);
+        return CheckMoves.checkBoxGovernancePiece(startRow, startCol, endRow, endCol, board);
     }
 }

@@ -1,6 +1,6 @@
 package boxshogi;
 
-public class BoxPreviewPice extends Piece{
+public class BoxPreviewPiece extends Piece{
     private static final char LABEL = 'P';
 
 
@@ -8,9 +8,13 @@ public class BoxPreviewPice extends Piece{
      * Constructor for BoxPreviewPice
      * @param owner - the owner of the piece, either player 1 or player 2
      */
-    public BoxPreviewPice(Player owner){
-        super(owner);
-        setLabel(LABEL);
+    public BoxPreviewPiece(Player owner){
+        super(LABEL, owner);
+    }
+
+    @Override
+    protected boolean canPlayerMove(int startRow, int startCol, int endRow, int endCol, Board board) {
+        return CheckMoves.checkBoxPreviewPiece(startRow,startCol,endRow,endCol);
     }
 
     @Override

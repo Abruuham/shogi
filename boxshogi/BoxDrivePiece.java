@@ -1,7 +1,7 @@
 package boxshogi;
 
 // Box Drive piece (King in real shogi)
-public class BoxDrivePiece extends Piece{
+public final class BoxDrivePiece extends Piece{
     private static final char LABEL = 'D';
 
     /**
@@ -9,8 +9,7 @@ public class BoxDrivePiece extends Piece{
      * @param owner - the owner of the piece, either player 1 or player 2
      */
     public BoxDrivePiece(Player owner){
-        super(owner);
-        setLabel(LABEL);
+        super(LABEL, owner);
     }
 
     @Override

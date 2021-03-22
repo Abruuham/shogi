@@ -1,10 +1,30 @@
 package boxshogi;
 
+import java.io.FileNotFoundException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Scanner;
+
 public class Main {
-    public static void main(String[] args) {
+
+    public static void interactionMode() throws IllegalAccessException, InstantiationException,
+            FileNotFoundException, NoSuchMethodException,
+            InvocationTargetException, ClassNotFoundException {
+
+        BoxShogiGame game = new BoxShogiGame(new InteractionMode());
+        Scanner in = new Scanner(System.in);
+        while(!game.isGameOver()){
+            String[] move = (in.nextLine()).split("\\s+");
+            if(move[0].equals("move")){
+                game.move(move[1], move[2], move.length == 4);
+            } else{
+                game.drop(move[1].charAt(0), move[2]);
+            }
+        }
+    }
+
+    public static void main(String[] args) throws NoSuchMethodException, IllegalAccessException, InstantiationException, FileNotFoundException, InvocationTargetException, ClassNotFoundException {
         if (args.length == 1 && args[0].equals("-i")) {
-            Board board = new Board();
-            System.out.println(board);
+            interactionMode();
         } else if (args.length == 2 && args[0].equals("-f")) {
             try {
                 //Utils.TestCase input = Utils.parseTestCase(args[1]);
