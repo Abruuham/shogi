@@ -18,6 +18,10 @@ public class BoxNotesPiece extends Piece {
 
     @Override
     protected boolean canPlayerMove(int startRow, int startCol, int endRow, int endCol, Board board) {
+        if(isPromoted) {
+            return CheckMoves.checkBoxNotesPiece(startRow, startCol, endRow, endCol, board) ||
+                    CheckMoves.checkBoxDriveMove(startRow, startCol, endRow, endCol);
+        }
         return CheckMoves.checkBoxNotesPiece(startRow, startCol, endRow, endCol, board);
     }
 

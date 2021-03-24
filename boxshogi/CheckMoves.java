@@ -86,14 +86,12 @@ public class CheckMoves {
         else return (deltaRow == -1 && (deltaCol == -1 || deltaCol == 1));
     }
 
-    public static boolean checkBoxRelayPiece(int startRow, int startCol, int endRow, int endCol){
+    public static boolean checkBoxRelayPiece(int startRow, int startCol, int endRow, int endCol, Position position){
         int row = endRow - startRow;
         int col = endCol - startCol;
-
-        if (col == 0 && row == 1) return true;
-        else if(col == 1 && (row == 1 || row == -1)) return true;
-        else if(col == -1 && (row == 1 || row == 1)) return true;
-        return false;
+        if (Math.abs(row) == 1 && Math.abs(col) == 1) return true;
+        else if (position == Position.UPPER) return (row == 1 && col == 0);
+        else return (row == -1 && col == 0);
     }
 
     public static boolean checkBoxPreviewPiece(int startRow, int startCol, int endRow, int endCol){

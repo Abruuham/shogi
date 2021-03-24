@@ -43,6 +43,10 @@ public class BoxRelayPiece extends Piece {
 
     @Override
     protected boolean canPlayerMove(int startRow, int startCol, int endRow, int endCol, Board board) {
-        return CheckMoves.checkBoxRelayPiece(startRow, startCol, endRow, endCol);
+        if(isPromoted){
+            return CheckMoves.checkBoxShieldPiece(startRow, startCol, endRow, endCol, position);
+        } else {
+            return CheckMoves.checkBoxRelayPiece(startRow, startCol, endRow, endCol, position);
+        }
     }
 }

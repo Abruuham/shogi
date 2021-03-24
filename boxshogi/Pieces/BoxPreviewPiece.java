@@ -19,6 +19,9 @@ public class BoxPreviewPiece extends Piece {
 
     @Override
     protected boolean canPlayerMove(int startRow, int startCol, int endRow, int endCol, Board board) {
+        if(isPromoted) {
+            return CheckMoves.checkBoxShieldPiece(startRow, startCol, endRow, endCol, position);
+        }
         return CheckMoves.checkBoxPreviewPiece(startRow,startCol,endRow,endCol);
     }
 

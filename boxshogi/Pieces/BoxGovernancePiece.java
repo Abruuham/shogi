@@ -43,6 +43,11 @@ public class BoxGovernancePiece extends Piece {
 
     @Override
     protected boolean canPlayerMove(int startRow, int startCol, int endRow, int endCol, Board board) {
-        return CheckMoves.checkBoxGovernancePiece(startRow, startCol, endRow, endCol, board);
+        if (isPromoted) {
+            return (CheckMoves.checkBoxGovernancePiece(startRow, startCol, endRow, endCol, board) ||
+                    CheckMoves.checkBoxDriveMove(startRow, startCol, endRow, endCol));
+        } else {
+            return CheckMoves.checkBoxGovernancePiece(startRow, startCol, endRow, endCol, board);
+        }
     }
 }

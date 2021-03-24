@@ -1,16 +1,18 @@
 package boxshogi;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 import java.time.Period;
 import java.util.*;
 
-public class BoxShogiGame {
+public class BoxShogiGame implements BoxShogi {
 
 
     private Board board;
     private int turn;
+    private int bottomTurn;
     private boolean gameOver = true;
     private Player currentPlayer;
     private Player topPlayer;
@@ -19,8 +21,13 @@ public class BoxShogiGame {
     private List<GameListener> gameListeners;
 
     private void nextTurn(){
-        turn++;
-        if (turn > 400 && !gameOver){
+
+        if(currentPlayer == topPlayer){
+            turn++;
+        }else {
+            bottomTurn++;
+        }
+        if ((turn >= 200 && bottomTurn >= 200) && !gameOver){
             gameOver = true;
             for(GameListener g1 : gameListeners){
                 g1.tie();
@@ -43,9 +50,54 @@ public class BoxShogiGame {
     }
 
 
+    private void placePiece(String symbol, String address, Board board, Player upper, Player lower) {
+        Piece p = Piece.produce(symbol, upper, lower);
+        board.placePiece(p, address);
+    }
+
+    public BoxShogiGame(Utils.TestCase tc) {
+        turn = 0;
+        bottomTurn = 0;
+        gameOver = false;
+        gameListeners = new ArrayList<>();
+
+        //Initialize Players and the queue
+        playerList = new LinkedList<>();
+        topPlayer = new Player(true);
+        bottomPlayer = new Player(false);
+        playerList.add(bottomPlayer);
+        playerList.add(topPlayer);
+
+        //The board
+        board = new Board();
+        List<Utils.InitialPosition> ips = tc.initialPieces;
+        for (Utils.InitialPosition ip : ips) {
+            String symbol = ip.piece;
+            String address = ip.position;
+            placePiece(symbol, address, board, topPlayer, bottomPlayer);
+        }
+
+        //The captured Pieces
+        List<String> upperCaptures = tc.upperCaptures;
+        for (String symbol : upperCaptures) {
+            if (symbol.length() < 1) continue;
+            Piece p = Piece.produce(symbol, topPlayer, bottomPlayer);
+            topPlayer.addCapturedPiece(p);
+        }
+        List<String> lowerCaptures = tc.lowerCaptures;
+        for (String symbol : lowerCaptures) {
+            if (symbol.length() < 1) continue;
+            Piece p = Piece.produce(symbol, topPlayer, bottomPlayer);
+            bottomPlayer.addCapturedPiece(p);
+        }
+        nextTurn();
+    }
+
+
 
     public void newGame() throws FileNotFoundException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         turn = 0;
+        bottomTurn = 0;
         gameOver = false;
 
         playerList = new LinkedList<>();
@@ -105,9 +157,63 @@ public class BoxShogiGame {
         return legalMove;
     }
 
-    public boolean drop(char piece, String address){
-        return true;
+    public boolean drop(char piece, String address) {
+        if (gameOver) return false;
+        int index = currentPlayer.getCapturedPieceIndex(piece);
+        Piece p = currentPlayer.getPiece(piece);
+        boolean legalDrop = true;
+        if (p == null) {
+            //The player does not have the piece
+            gameOver = true;
+            legalDrop = false;
+        }
+        else {
+            legalDrop = board.makeDrop(p, address, currentPlayer);
+        }
+        if (!legalDrop && p != null) {
+            currentPlayer.addCapturedPieceToIndex(p, index);
+        }
+
+        List<String> strategies = new LinkedList<>();
+        Player opponent = getOpponent();
+        boolean isCheck = false;
+        if (legalDrop) {
+            if (board.isCheck(currentPlayer)) {
+                isCheck = true;
+                strategies = board.unCheckStrategies(opponent);
+                if (strategies.size() == 0) {
+                    gameOver = true;
+                }
+            }
+        }
+        else {
+            gameOver = true;
+        }
+
+        //Inform the observer
+        for (GameListener gl : gameListeners) {
+            gl.dropMade(currentPlayer.toString(), String.valueOf(piece), address);
+        }
+        broadcastGameState();
+        boardcastMoveResult(legalDrop, isCheck, strategies);
+
+        //Move on
+        nextTurn();
+        return legalDrop;
     }
+
+    @Override
+    public void registerGameListener(GameListener gameListener) {
+        gameListeners.add(gameListener);
+
+    }
+
+    @Override
+    public void clearGameListener() {
+        gameListeners = new ArrayList<>();
+
+    }
+
     private void broadcastGameState(){
         for(GameListener g1 : gameListeners){
             g1.boardUpdate(board.getCurrentBoard());

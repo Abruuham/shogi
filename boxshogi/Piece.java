@@ -86,4 +86,46 @@ public abstract class Piece {
         return String.valueOf(label);
     }
 
+
+
+
+    public static Piece produce(String symbol, Player upper, Player lower) {
+        boolean promoted = false;
+        if (symbol.length() == 2) {
+            promoted = true;
+            symbol = symbol.substring(1);
+        }
+        char charSymbol = symbol.charAt(0);
+        Player owner;
+        if (Character.isUpperCase(charSymbol)) {
+            owner = upper;
+        }
+        else {
+            owner = lower;
+        }
+        Piece p;
+        switch (Character.toLowerCase(charSymbol)) {
+            case 'g' :
+                p = new BoxGovernancePiece(owner);
+                break;
+            case 'd' :
+                p = new BoxDrivePiece(owner);
+                break;
+            case 'p' :
+                p = new BoxPreviewPiece(owner);
+                break;
+            case 'n' :
+                p = new BoxNotesPiece(owner);
+                break;
+            case 'r' :
+                p = new BoxRelayPiece(owner);
+                break;
+            default :
+                p = new BoxShieldPiece(owner);
+        }
+        if (promoted) {
+            p.promote();
+        }
+        return p;
+    }
 }
