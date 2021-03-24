@@ -76,7 +76,6 @@ public class BoxShogiGame {
 
     public boolean move(String from, String to, boolean promote){
         if (gameOver) return false;
-        System.out.println(currentPlayer.toString());
         boolean legalMove = board.makeMove(from, to, promote, currentPlayer);
         List<String> strategies = new LinkedList<>();
         Player opponent = getOpponent();

@@ -25,18 +25,21 @@ final public class InteractionMode implements GameListener {
     }
     @Override
     public void capturedPieces(List<String> upper, List<String> lower){
-        System.out.println("Captures UPPER: ");
+        System.out.print("Captures UPPER: ");
         StringBuilder pieces = new StringBuilder();
         for(String s : upper){
             pieces.append(" " + s);
         }
-        System.out.println(pieces.toString().trim());
-        System.out.println("Captures lower: ");
+        String lowerCaptured = pieces.toString().trim();
+        System.out.println(lowerCaptured);
+
+        System.out.print("Captures lower: ");
         pieces = new StringBuilder();
         for(String s : lower){
             pieces.append(" " + s);
         }
-        System.out.println(pieces.toString().trim());
+        String upperCaptured = pieces.toString().trim();
+        System.out.println(upperCaptured);
         System.out.println();
     }
     @Override
@@ -45,23 +48,28 @@ final public class InteractionMode implements GameListener {
     }
 
     @Override
-    public void invalidMove(String winner) {
-
+    public void invalidMove(String winningPlayer) {
+        System.out.println(winningPlayer + " player wins. Illegal move");
     }
 
     @Override
     public void check(String sadPerson, List<String> strategies) {
-
+        System.out.println(sadPerson + " player is in check!");
+        System.out.println("Available moves:");
+        strategies.sort(String::compareTo);
+        for (String s : strategies) {
+            System.out.println(s);
+        }
     }
 
     @Override
-    public void checkMate(String winner) {
-
+    public void checkMate(String winningPlayer) {
+        System.out.println(winningPlayer + " player wins. Checkmate");
     }
 
     @Override
     public void tie() {
-
+        System.out.println("Tie game. Too many moves.");
     }
 
 }

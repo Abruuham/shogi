@@ -159,7 +159,6 @@ public class Board {
                     Map<String, Integer> kingLoc = getOpponentKingLocation(currentPlayer);
                     //System.out.println("row: " + row + " col: " + col + " king row: " + kingLoc.get("row") + " king col: " + kingLoc.get("col"));
                     if (p.isValidMove(row, col, kingLoc.get("row"), kingLoc.get("col"), this)) {
-                        System.out.println(p.toString());
                         return true;
                     }
                 }

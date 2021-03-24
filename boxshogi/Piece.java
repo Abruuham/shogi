@@ -30,9 +30,7 @@ public abstract class Piece {
     }
 
 
-    public final void capturePiece(){
 
-    }
 
     public abstract boolean isLegalDrop(int row, int col, Board board);
 
@@ -82,48 +80,10 @@ public abstract class Piece {
     }
 
     public String toString() {
+        if(isPromoted){
+            return "+" + label;
+        }
         return String.valueOf(label);
     }
 
-
-
-    public static Piece produce(String symbol, Player upper, Player lower) {
-        boolean promoted = false;
-        if (symbol.length() == 2) {
-            promoted = true;
-            symbol = symbol.substring(1);
-        }
-        char charSymbol = symbol.charAt(0);
-        Player owner;
-        if (Character.isUpperCase(charSymbol)) {
-            owner = upper;
-        }
-        else {
-            owner = lower;
-        }
-        Piece p;
-        switch (Character.toLowerCase(charSymbol)) {
-            case 'b' :
-                p = new BoxGovernancePiece(owner);
-                break;
-            case 'k' :
-                p = new BoxDrivePiece(owner);
-                break;
-            case 'p' :
-                p = new BoxPreviewPiece(owner);
-                break;
-            case 'r' :
-                p = new BoxNotesPiece(owner);
-                break;
-            case 's' :
-                p = new BoxRelayPiece(owner);
-                break;
-            default :
-                p = new BoxShieldPiece(owner);
-        }
-        if (promoted) {
-            p.promote();
-        }
-        return p;
-    }
 }

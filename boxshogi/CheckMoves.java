@@ -12,7 +12,11 @@ public class CheckMoves {
     public static boolean checkBoxGovernancePiece(int startRow, int startCol, int endRow, int endCol, Board board){
         int row = endRow - startRow;
         int col = endCol - startCol;
-        int rowDelta, colDelta = 0;
+
+        if(Math.abs(row) != Math.abs(col)){
+            return false;
+        }
+        int rowDelta, colDelta;
         if(row < 0) {
             rowDelta = -1;
         } else{
@@ -25,16 +29,11 @@ public class CheckMoves {
             colDelta = 1;
         }
 
-        if(Math.abs(row) != Math.abs(col)){
-            return false;
-        }
 
-        for(int i = 1; i < board.BOARD_SIZE; i++){
-            int newRow = row + rowDelta * i;
-            int newCol = col + colDelta * i;
-            if( newRow < 0 || newRow > 4 || newCol < 0 || newCol > 4){
-                return false;
-            }
+
+        for(int i = 1; i < Math.abs(row); i++){
+            int newRow = startRow + i * rowDelta ;
+            int newCol = startCol + i * colDelta;
             if(board.getPiece(newRow, newCol) != null){
                 return false;
             }
@@ -46,32 +45,36 @@ public class CheckMoves {
     public static boolean checkBoxNotesPiece(int startRow, int startCol, int endRow, int endCol, Board board){
         int row = endRow - startRow;
         int col = endCol - startCol;
-        if(row != 0 || col != 0){
-            return false;
-        } else if(row == 0){
-          int colDelta = 0;
-          if(col < 0){
-              colDelta = -1;
-            } else{
-              colDelta = 1;
-          }
-          for(int i = 1; i < Math.abs(col); i++){
-              int newCol = startCol + colDelta * i;
-              if(board.getPiece(startRow, newCol) != null) return false;
-          }
-        } else{
-            int rowDelta = 0;
+        if(Math.min(Math.abs(row), Math.abs(col)) != 0) return false;
+
+        if(col == 0){
+            int newRow;
             if(row < 0){
-                rowDelta = -1;
+                newRow = -1;
             } else{
-                rowDelta = 1;
+                newRow = 1;
             }
+
             for(int i = 1; i < Math.abs(row); i++){
-                int newRow = startRow + rowDelta * i;
-                if(board.getPiece(newRow, startCol) != null) return false;
+                int rowDelta = startRow + newRow * i;
+                if(board.getPiece(rowDelta, startCol) != null) return false;
             }
+            return true;
+        } else {
+            assert(row == 0);
+            int newCol;
+            if(col < 0){
+                newCol = -1;
+            } else{
+                newCol = 1;
+            }
+            for (int i = 1; i < Math.abs(col); i++) {
+                int colDelta = startCol + newCol * i;
+                if (board.getPiece(startRow, colDelta) != null) return false;
+           }
+            return true;
         }
-        return true;
+
     }
 
     public static boolean checkBoxShieldPiece(int startRow, int startCol, int endRow, int endCol, Position position){
