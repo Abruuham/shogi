@@ -83,6 +83,8 @@ public class Board {
         return a + String.valueOf(b);
     }
 
+    //Checks to see if the address the player is entering matches
+    // the rules of the game
     private static boolean isValidAddr(String address) {
         return address.matches(ADDRESS_PATTERN);
     }
